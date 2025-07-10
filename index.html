@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Feliz Cumpleaños, Amor 💖</title>
+    <title>¡Feliz Cumpleaños, Hermosa!💖</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand:wght@400;700&display=swap"
         rel="stylesheet">
     <style>
@@ -66,7 +66,7 @@
             border-radius: 25px;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
             text-align: center;
-            max-width: 800px;
+            max-width: 600px;
             margin: 40px auto;
             position: relative;
             z-index: 2;
@@ -221,6 +221,7 @@
 
 <body>
     <div class="pantalla-inicio" id="pantallaInicio">
+        <h2>💌😘 11/07/2025 💕🥳</h2>
         <h2>💌 Sé que no es mucho... pero lo hice con todo mi corazón para ti 💖</h2>
         <button onclick="iniciarSorpresa()">Continuar</button>
     </div>
@@ -228,7 +229,7 @@
     <div class="corazones"></div>
 
     <div class="contenedor" id="contenedor">
-        <h1>🎉 ¡Feliz Cumpleaños, Mi Amor! 🎂</h1>
+        <h1>🎉¡Feliz Cumpleaños, Hermosa!🎂</h1>
         <div class="contenido-flex">
             <img id="fotoSorpresa" class="imagen-sorpresa" src="foto.jpg" alt="Foto sorpresa" />
             <p id="mensaje" class="maquina-escribir"></p>
@@ -241,7 +242,26 @@
         <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
     </audio>
 
+    <!-- Firebase App (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
     <script>
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCIsuPHYYhxQYbz5zTJZyr63xJ100shyoo",
+            authDomain: "prueba-5a28c.firebaseapp.com",
+            projectId: "prueba-5a28c",
+            storageBucket: "prueba-5a28c.firebasestorage.app",
+            messagingSenderId: "1003817153957",
+            appId: "1:1003817153957:web:aa74e747452f1fe361a44c"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+
+
         const mensaje = `Hoy es un día mágico... 💫
 
 Porque nació la mujer más hermosa del mundo 🌹
@@ -251,7 +271,7 @@ que transforma lo cotidiano en extraordinario ✨
 
 Gracias por existir, por ser tú, y por llenar de amor mi vida.
 
-¡Feliz cumpleaños, mi amor! ❤️
+¡Feliz cumpleaños, reina hermosa! ❤️👑
 
 Hoy celebro tu vida... y que estés en la mía. 🎂`;
 
@@ -299,7 +319,26 @@ Hoy celebro tu vida... y que estés en la mía. 🎂`;
         }
 
         function irAVideo() {
-            window.open("https://www.youtube.com/shorts/5N-BjXxf3gM", "_blank");
+            const ahora = new Date();
+            const fecha = ahora.toISOString().split("T")[0];
+            const hora = ahora.toTimeString().split(" ")[0];
+
+            // Mostrar mensaje temporal mientras se guarda (opcional)
+            document.getElementById("botonVideo").innerText = "Cargando sorpresa... 🎁";
+            document.getElementById("botonVideo").disabled = true;
+
+            db.collection("video_regalos").add({
+                fecha: fecha,
+                hora: hora
+            }).then(() => {
+                // Solo redireccionamos después de guardar exitosamente
+                window.location.href = "https://www.youtube.com/shorts/5N-BjXxf3gM";
+            }).catch((error) => {
+                console.error("Error al guardar en Firebase:", error);
+                console.log("Ocurrió un error al guardar tu sorpresa 😢. Intenta de nuevo por favor.");
+                document.getElementById("botonVideo").innerText = "🎥 Ver video especial";
+                document.getElementById("botonVideo").disabled = false;
+            });
         }
 
     </script>
