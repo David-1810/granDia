@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feliz Cumpleaños, Amor 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+        }
+
+        .pantalla-inicio {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 240, 245, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .pantalla-inicio h2 {
+            font-size: 2em;
+            color: #c2185b;
+            font-family: 'Dancing Script', cursive;
+            margin-bottom: 20px;
+        }
+
+        .pantalla-inicio button {
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            transition: background 0.3s;
+        }
+
+        .pantalla-inicio button:hover {
+            background-color: #d81b60;
+        }
+
+        .contenedor {
+            display: none;
+            background: rgba(255, 240, 245, 0.95);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 800px;
+            margin: 40px auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3em;
+            color: #e91e63;
+            margin-bottom: 20px;
+        }
+
+        .contenido-flex {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .imagen-sorpresa {
+            opacity: 0;
+            transform: scale(0.9) rotate(-3deg);
+            transition: all 1s ease;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 100px;
+            height: auto;
+        }
+
+        .imagen-sorpresa.mostrar {
+            opacity: 1;
+            transform: scale(1) rotate(-3deg);
+        }
+
+        .maquina-escribir {
+            font-size: 1.3em;
+            color: #444;
+            white-space: pre-wrap;
+            line-height: 1.7;
+            flex: 1;
+            min-width: 250px;
+        }
+
+
+        .imagen-sorpresa.mostrar {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .corazones {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .corazon {
+            position: absolute;
+            background: red;
+            transform: rotate(45deg);
+            animation: flotar 6s linear forwards;
+        }
+
+        .corazon::before,
+        .corazon::after {
+            content: '';
+            position: absolute;
+            background: red;
+            border-radius: 50%;
+        }
+
+        .corazon::before {
+            top: -50%;
+            left: 0;
+        }
+
+        .boton-video {
+            opacity: 0;
+            transition: opacity 1s ease;
+            display: none;
+            margin: 30px auto 0;
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            transition: background 0.3s;
+            text-align: center;
+        }
+
+        .boton-video:hover {
+            background-color: #c2185b;
+        }
+
+        .boton-video.mostrar {
+            display: inline-block;
+            opacity: 1;
+        }
+
+        .corazon::after {
+            top: 0;
+            left: -50%;
+        }
+
+        @keyframes flotar {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(-50vh) translateX(-20px) rotate(45deg);
+            }
+
+            100% {
+                transform: translateY(-100vh) translateX(20px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .maquina-escribir {
+                font-size: 1.1em;
+            }
+
+            .contenedor {
+                padding: 30px 20px;
+            }
+
+            .pantalla-inicio h2 {
+                font-size: 1.6em;
+            }
+
+            .pantalla-inicio button {
+                font-size: 1em;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pantalla-inicio" id="pantallaInicio">
+        <h2>💌 Sé que no es mucho... pero lo hice con todo mi corazón para ti 💖</h2>
+        <button onclick="iniciarSorpresa()">Continuar</button>
+    </div>
+
+    <div class="corazones"></div>
+
+    <div class="contenedor" id="contenedor">
+        <h1>🎉 ¡Feliz Cumpleaños, Mi Amor! 🎂</h1>
+        <div class="contenido-flex">
+            <img id="fotoSorpresa" class="imagen-sorpresa" src="foto.jpg" alt="Foto sorpresa" />
+            <p id="mensaje" class="maquina-escribir"></p>
+        </div>
+        <button id="botonVideo" class="boton-video" onclick="irAVideo()">🎥 Ver video especial</button>
+    </div>
+
+
+    <audio id="musica" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        const mensaje = `Hoy es un día mágico... 💫
+
+Porque nació la mujer más hermosa del mundo 🌹
+
+Esa mujer que ilumina mis días con solo sonreír,
+que transforma lo cotidiano en extraordinario ✨
+
+Gracias por existir, por ser tú, y por llenar de amor mi vida.
+
+¡Feliz cumpleaños, mi amor! ❤️
+
+Hoy celebro tu vida... y que estés en la mía. 🎂`;
+
+        let i = 0;
+        function escribir() {
+            if (i < mensaje.length) {
+                document.getElementById("mensaje").innerHTML += mensaje.charAt(i);
+                i++;
+                setTimeout(escribir, 50);
+            } else {
+                document.getElementById("fotoSorpresa").classList.add("mostrar");
+                document.getElementById("botonVideo").classList.add("mostrar");
+
+            }
+        }
+
+        function crearCorazon() {
+            const corazon = document.createElement("div");
+            corazon.classList.add("corazon");
+
+            const size = Math.floor(Math.random() * 20) + 20;
+            corazon.style.width = `${size}px`;
+            corazon.style.height = `${size}px`;
+
+            const left = Math.random() * 100;
+            const bottom = Math.random() * 20 + 5;
+            corazon.style.left = `${left}vw`;
+            corazon.style.bottom = `${bottom}vh`;
+
+            corazon.style.opacity = (0.5 + Math.random() * 0.5).toFixed(2);
+            corazon.style.animationDuration = `${4 + Math.random() * 3}s`;
+
+            document.querySelector(".corazones").appendChild(corazon);
+            setTimeout(() => corazon.remove(), 7000);
+        }
+
+        let corazonInterval;
+
+        function iniciarSorpresa() {
+            document.getElementById("pantallaInicio").style.display = "none";
+            document.getElementById("contenedor").style.display = "block";
+            document.getElementById("musica").play();
+            escribir();
+            corazonInterval = setInterval(crearCorazon, 300);
+        }
+
+        function irAVideo() {
+            window.open("https://www.youtube.com/shorts/5N-BjXxf3gM", "_blank");
+        }
+
+    </script>
+</body>
+
+</html>
